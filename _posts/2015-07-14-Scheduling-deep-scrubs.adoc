@@ -1,18 +1,21 @@
 = Scheduling deep scrubs
 :hp-tags: Ceph
 
-== Find out when Ceph performs deep scrubs
-=== weekday
+First, find out when Ceph performs deep scrubs. Depending on when you initially created your OSDs, you probably will notice some clustering.
+
+=== Day of the week
 [source,bash]
 ----
 $ for date in $(ceph pg dump | grep active | awk '{print $20}'); do date +%A -d $date; done | sort | uniq -c
 ----
 
-=== time of day
-`$ for date in $(ceph pg dump | grep active | awk '{print $21}'); do date +%H -d $date; done | sort | uniq -c`
+=== Time of day
+[code,bash]
+----
+$ for date in $(ceph pg dump | grep active | awk '{print $21}'); do date +%H -d $date; done | sort | uniq -c
+----
 
 == Reschedule deep scrubs
 Ceph performs deep scrubs on a weekly basis, counting from the last deep scrub. Perform a manual deep scrub on a PG or OSD an the next deep scrub will be performed exactly one week later.
 
-For example
-`echo "ceph osd deep-scrub 0" | at 1am tomorrow"` will the next deep scrub every PG of osd.0 at 1am the following night. All following deep scrubs will be performed weekly from then on out.
+For example `echo "ceph osd deep-scrub 0" | at 1am tomorrow"` will manually perform a deep scrub of every PG of osd.0 at 1am the following night. All following deep scrubs will be performed at this time of the week, every week.
