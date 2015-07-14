@@ -1,5 +1,5 @@
 = Scheduling deep scrubs
-:hp-tags: Ceph
+:hp-tags: Ceph, Maintenance
 
 First, find out when Ceph performs deep scrubs. Depending on when you initially created your OSDs, you probably will notice some clustering.
 
