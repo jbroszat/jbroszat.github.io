@@ -6,13 +6,13 @@ First, find out when Ceph performs deep scrubs. Depending on when you initially 
 === Day of the week
 [source,bash]
 ----
-$ for date in $(ceph pg dump | grep active | awk '{print $20}'); do date +%A -d $date; done | sort | uniq -c
+for date in $(ceph pg dump | grep active | awk '{print $20}'); do date +%A -d $date; done | sort | uniq -c
 ----
 
 === Time of day
-[code,bash]
+[source,bash]
 ----
-$ for date in $(ceph pg dump | grep active | awk '{print $21}'); do date +%H -d $date; done | sort | uniq -c
+for date in $(ceph pg dump | grep active | awk '{print $21}'); do date +%H -d $date; done | sort | uniq -c
 ----
 
 == Reschedule deep scrubs
